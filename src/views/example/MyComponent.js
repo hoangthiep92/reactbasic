@@ -1,81 +1,46 @@
-import React from "react";
+import React from "react"
+import ChildComponent from "./ChildComponent"
+import AddComponent from "./AddComponent"
 
 class MyComponent extends React.Component {
+  // bien state key:value
+  state = {
 
-// bien state key:value
-state = {
-    name: 'Thiep',
-    channel: 'Hoi dan IT'
-}
+    arrJobs: [
+      { id: 'job1', title: 'Developers', salary: '500' },
+      { id: 'job2', title: 'Tester', salary: '400' },
+      { id: 'job3', title: 'Project managers', salary: '1000' }
+    ]
+  }
+
+  addNewJob = (job) => {
+    this.setState({
+      arrJobs: [...this.state.arrJobs, job]
+    })
+  }
 
 
-/*
-JSX return block
- */
 
-// vi du co ban khi su dung DOM
-handleClickButton = () => {
-    alert('click me')
-}
-handleOnChangeName = (event) => {
-    //kiem tra cac gia trij event
-    // console.log(event.target.value, 
-    //     'event target: ',
-    //     event.target,
-    //     'event object: ',
-    //     event)
-        this.setState({
-            name: event.target.value
-        })
-}
 
-    render() {
+  /*
+  JSX return block
+   */
+  render() {
+    console.log('>>> call render: ', this.state)
+    return (
+      <>
+        <AddComponent
+          addNewJob={this.addNewJob}
+        />
 
-        return (
-            // <div className="abc">
-            //     <div className="firstClass">
-            //     {console.log('My name is:', name)}
-            // hello my component, My name is {name}
-            //     </div>
 
-            //     <div className="secondCalss">
-            //         block nho ban trong
-            //     </div>
-            // </div>
-            // <React.Fragment> // khi muon return nhieu block
-            //     <div className="firstClass">
-            //         {console.log('My name is:', name)}
-            //         hello my component, My name is {name}
-            //     </div>
 
-            //     <div className="secondCalss">
-            //         block nho ban trong
-            //     </div>
-            // </React.Fragment>
-
-            // cach 2 khi muon dung Fragment
-            <> 
-            <div className="firstClass">
-                    {console.log('My name is:', this.state.name)}
-                    <input onChange={(event) => this.handleOnChangeName(event)} 
-                    type="text" 
-                    value={this.state.name}/>
-                    hello my component, My name is {this.state.name}
-                </div>
-
-                <div className="secondCalss">
-                    {/* block nho ban trong */}
-                    My channel: {this.state.channel}
-                </div>
-
-                <div className="third">
-                    <button onClick={() => this.handleClickButton()}>click me</button>
-                </div>
-
-            </>
-        )
-
-    }
+        <ChildComponent
+          arrJobs={this.state.arrJobs}
+        />
+      </>
+    )
+  }
 }
 
 export default MyComponent;
