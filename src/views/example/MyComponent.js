@@ -14,12 +14,32 @@ class MyComponent extends React.Component {
   }
 
   addNewJob = (job) => {
+    // comment cac viet de hieu va hien cach viet nang cao
+    // let currenJobs = this.state.arrJobs;
+    // currenJobs.push(job)
+
     this.setState({
       arrJobs: [...this.state.arrJobs, job]
+      // arrJobs: currenJobs
     })
   }
 
+  deleteAJob = (job) => {
+    let currenJobs = this.state.arrJobs;
+    currenJobs = currenJobs.filter(item => item.id !== job.id)
+    this.setState({
+      arrJobs: currenJobs
+    })
+  }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('>> run did update',
+      'prev state: ', prevState,
+      ' current state: ', this.state);
+  }
+  componentDidMount() {
+    console.log('>>> run component did mount');
+  }
 
 
   /*
@@ -37,6 +57,7 @@ class MyComponent extends React.Component {
 
         <ChildComponent
           arrJobs={this.state.arrJobs}
+          deleteAJob={this.deleteAJob}
         />
       </>
     )
